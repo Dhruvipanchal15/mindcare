@@ -9,4 +9,5 @@ mysqlclient
 Werkzeug
 Jinja2
 itsdangerous
+google-generativeai
 click

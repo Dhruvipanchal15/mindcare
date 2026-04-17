@@ -2,4 +2,5 @@ flask
 vaderSentiment
 gunicorn
 pymysql
+python-dotenv
 Flask-SQLAlchemy

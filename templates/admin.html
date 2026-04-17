@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Dashboard</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+body{
+margin:0;
+font-family:'Segoe UI';
+background:#f4f6fb;
+display:flex;
+}
+
+/* SIDEBAR */
+.sidebar{
+width:220px;
+background:linear-gradient(180deg,#1e3a8a,#3b82f6);
+height:100vh;
+color:white;
+padding:20px;
+}
+
+.sidebar h2{
+margin-bottom:30px;
+}
+
+.sidebar a{
+display:block;
+color:white;
+text-decoration:none;
+margin:15px 0;
+}
+
+/* MAIN */
+.main{
+flex:1;
+padding:25px;
+}
+
+/* HEADER */
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+}
+
+.header h2{
+margin:0;
+}
+
+/* CARDS */
+.cards{
+display:flex;
+gap:20px;
+margin-bottom:25px;
+}
+
+.card{
+flex:1;
+background:white;
+padding:20px;
+border-radius:12px;
+box-shadow:0 5px 15px rgba(0,0,0,0.05);
+text-align:center;
+}
+
+.card h4{
+margin:0;
+color:#666;
+}
+
+.card p{
+font-size:22px;
+font-weight:bold;
+margin-top:10px;
+}
+
+/* CHART */
+.chart-box{
+width:400px;
+margin:auto;
+background:white;
+padding:20px;
+border-radius:12px;
+}
+
+/* TABLE */
+table{
+width:100%;
+margin-top:25px;
+border-collapse:collapse;
+background:white;
+border-radius:10px;
+overflow:hidden;
+}
+
+th, td{
+padding:12px;
+text-align:left;
+}
+
+th{
+background:#2563eb;
+color:white;
+}
+
+tr:nth-child(even){
+background:#f9fbff;
+}
+
+.logout{
+background:#ef4444;
+color:white;
+padding:8px 15px;
+border-radius:8px;
+text-decoration:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+<h2>MindCare</h2>
+<a href="/admin">Dashboard</a>
+<a href="/admin_logout">Logout</a>
+</div>
+
+<div class="main">
+
+<div class="header">
+<h2>Welcome, {{ admin.username }} 👋</h2>
+<a href="/admin_logout" class="logout">Logout</a>
+</div>
+
+<div class="cards">
+<div class="card">
+<h4>Users</h4>
+<p>{{ users|length }}</p>
+</div>
+
+<div class="card">
+<h4>Moods</h4>
+<p>{{ moods|length }}</p>
+</div>
+
+<div class="card">
+<h4>Appointments</h4>
+<p>{{ appointments|length }}</p>
+</div>
+</div>
+
+<div class="chart-box">
+<canvas id="moodChart"></canvas>
+</div>
+
+<h3>Users</h3>
+
+<table>
+<tr>
+<th>ID</th>
+<th>Username</th>
+</tr>
+
+{% for user in users %}
+<tr>
+<td>{{ user.id }}</td>
+<td>{{ user.username }}</td>
+</tr>
+{% endfor %}
+
+</table>
+
+</div>
+
+<script>
+new Chart(document.getElementById('moodChart'), {
+    type: 'doughnut',
+    data: {
+        labels: ['Happy','Sad','Neutral'],
+        datasets: [{
+            data: [{{happy}}, {{sad}}, {{neutral}}],
+            backgroundColor: ['#22c55e','#ef4444','#facc15']
+        }]
+    }
+});
+</script>
+
+</body>
+</html>

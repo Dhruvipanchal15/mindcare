@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Find Doctor | MindCare</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Poppins,sans-serif;
+background:#f5f7fb;
+}
+
+/* HEADER */
+
+.header{
+padding:30px;
+background:white;
+box-shadow:0 4px 20px rgba(0,0,0,0.05);
+}
+
+.header h2{
+margin:0;
+color:#1e293b;
+}
+
+.search{
+margin-top:15px;
+width:35%;
+padding:12px 18px;
+border-radius:25px;
+border:1px solid #e2e8f0;
+font-size:14px;
+outline:none;
+}
+
+/* CONTAINER */
+
+.container{
+width:90%;
+margin:auto;
+margin-top:40px;
+}
+
+/* GRID */
+
+.grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:35px;
+}
+
+/* CARD */
+
+.card{
+background:white;
+border-radius:20px;
+padding:30px;
+box-shadow:0 15px 35px rgba(0,0,0,0.08);
+text-align:center;
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-6px);
+}
+
+/* IMAGE */
+
+.card img{
+width:130px;
+height:130px;
+border-radius:16px;
+object-fit:cover;
+margin-bottom:18px;
+box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* NAME */
+
+.name{
+font-size:18px;
+font-weight:600;
+color:#111827;
+}
+
+/* SPECIALIZATION */
+
+.spec{
+font-size:14px;
+color:#64748b;
+margin-top:5px;
+}
+
+/* EXPERIENCE */
+
+.exp{
+margin-top:10px;
+font-size:14px;
+color:#64748b;
+}
+
+/* RATING */
+
+.rating{
+margin-top:10px;
+font-size:14px;
+color:#f59e0b;
+}
+
+/* CONSULT BUTTON */
+
+.consult{
+margin-top:18px;
+padding:10px 22px;
+border-radius:25px;
+border:2px solid #2563eb;
+background:white;
+color:#2563eb;
+font-weight:500;
+cursor:pointer;
+transition:.3s;
+}
+
+.consult:hover{
+background:#2563eb;
+color:white;
+}
+
+/* BACK BUTTON */
+
+.back{
+display:block;
+text-align:center;
+margin:50px;
+color:#2563eb;
+text-decoration:none;
+font-weight:500;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1000px){
+.grid{
+grid-template-columns:repeat(2,1fr);
+}
+}
+
+@media(max-width:600px){
+.grid{
+grid-template-columns:1fr;
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<div class="header">
+
+<h2>Consult Top Therapists</h2>
+
+
+<input class="search"
+id="searchDoctor"
+placeholder="Search doctor or specialization..."
+onkeyup="searchDoctors()">
+
+</div>
+
+
+<!-- DOCTOR GRID -->
+
+<div class="container">
+
+<div class="grid" id="doctorGrid">
+
+{% for d in doctors %}
+
+<div class="card doctor">
+
+<!-- Doctor Images -->
+
+{% if d[1] == "Dr. Aarav Mehta" %}
+<img src="https://randomuser.me/api/portraits/men/32.jpg">
+
+{% elif d[1] == "Dr. Riya Shah" %}
+<img src="https://randomuser.me/api/portraits/women/44.jpg">
+
+{% elif d[1] == "Dr. Kunal Patel" %}
+<img src="https://randomuser.me/api/portraits/men/45.jpg">
+
+{% elif d[1] == "Dr. Sneha Desai" %}
+<img src="https://randomuser.me/api/portraits/women/68.jpg">
+
+{% elif d[1] == "Dr. Rahul Verma" %}
+<img src="https://randomuser.me/api/portraits/men/52.jpg">
+
+{% elif d[1] == "Dr. Neha Joshi" %}
+<img src="https://randomuser.me/api/portraits/women/65.jpg">
+
+{% elif d[1] == "Dr. Arjun Kapoor" %}
+<img src="https://randomuser.me/api/portraits/men/71.jpg">
+
+{% elif d[1] == "Dr. Isha Trivedi" %}
+<img src="https://randomuser.me/api/portraits/women/75.jpg">
+
+{% elif d[1] == "Dr. Manan Bhatt" %}
+<img src="https://randomuser.me/api/portraits/men/60.jpg">
+
+{% elif d[1] == "Dr. Kavya Iyer" %}
+<img src="https://randomuser.me/api/portraits/women/59.jpg">
+
+{% elif d[1] == "Dr. Siddharth Rao" %}
+<img src="https://randomuser.me/api/portraits/men/63.jpg">
+
+{% elif d[1] == "Dr. Pooja Nair" %}
+<img src="https://randomuser.me/api/portraits/women/82.jpg">
+
+{% elif d[1] == "Dr. Yash Malhotra" %}
+<img src="https://randomuser.me/api/portraits/men/48.jpg">
+
+{% elif d[1] == "Dr. Tanvi Kulkarni" %}
+<img src="https://randomuser.me/api/portraits/women/90.jpg">
+
+{% elif d[1] == "Dr. Aditya Sinha" %}
+<img src="https://randomuser.me/api/portraits/men/55.jpg">
+
+{% else %}
+<img src="https://randomuser.me/api/portraits/men/1.jpg">
+{% endif %}
+
+<div class="name">{{d[1]}}</div>
+
+<div class="spec">{{d[2]}}</div>
+
+<div class="exp">{{d[3]}}</div>
+
+<div class="rating">⭐ 4.9</div>
+
+<a href="/book/{{d[0]}}">
+<button class="consult">
+Consult Now
+</button>
+</a>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+<a href="/dashboard" class="back">
+⬅ Back to Dashboard
+</a>
+
+</div>
+
+
+<script>
+
+function searchDoctors(){
+
+let input=document.getElementById("searchDoctor").value.toLowerCase();
+
+let cards=document.querySelectorAll(".doctor");
+
+cards.forEach(card=>{
+
+let text=card.innerText.toLowerCase();
+
+card.style.display = text.includes(input) ? "block" : "none";
+
+});
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Login - MindCare</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+margin:0;
+font-family:'Segoe UI',sans-serif;
+background:#0f172a;
+display:flex;
+height:100vh;
+}
+
+/* MAIN CONTAINER */
+
+.container{
+display:flex;
+width:90%;
+margin:auto;
+background:white;
+border-radius:25px;
+overflow:hidden;
+box-shadow:0 30px 70px rgba(0,0,0,.4);
+}
+
+/* LEFT SIDE IMAGE */
+
+.left{
+flex:1;
+background:
+linear-gradient(rgba(36,59,143,.6),rgba(29,169,166,.6)),
+url('https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=900&q=80');
+background-size:cover;
+background-position:center;
+color:white;
+display:flex;
+flex-direction:column;
+justify-content:flex-end;
+padding:40px;
+}
+
+.left h2{
+font-size:28px;
+line-height:1.4;
+}
+
+/* RIGHT SIDE FORM */
+
+.right{
+flex:1;
+padding:50px;
+}
+
+.right h1{
+color:#243B8F;
+margin-bottom:10px;
+}
+
+.sub{
+color:#666;
+margin-bottom:25px;
+}
+
+/* INPUTS */
+
+.input-group{
+margin-bottom:18px;
+}
+
+.input-group input{
+width:100%;
+padding:14px;
+border-radius:12px;
+border:1px solid #e2e8f0;
+font-size:15px;
+}
+
+.input-group input:focus{
+outline:none;
+border-color:#1DA9A6;
+box-shadow:0 0 0 3px rgba(29,169,166,.15);
+}
+
+/* LOGIN BUTTON */
+
+.login-btn{
+width:100%;
+padding:15px;
+border:none;
+border-radius:30px;
+background:linear-gradient(90deg,#243B8F,#1DA9A6);
+color:white;
+font-size:16px;
+font-weight:600;
+cursor:pointer;
+margin-top:10px;
+transition:.3s;
+}
+
+.login-btn:hover{
+transform:translateY(-3px);
+box-shadow:0 15px 30px rgba(0,0,0,.3);
+}
+
+/* GOOGLE BUTTON */
+
+.google-btn{
+margin-top:20px;
+width:100%;
+padding:13px;
+border-radius:25px;
+border:1px solid #ddd;
+background:white;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:10px;
+cursor:pointer;
+}
+
+.google-btn img{
+width:18px;
+}
+
+/* REGISTER */
+
+.register{
+text-align:center;
+margin-top:25px;
+}
+
+.register a{
+color:#1DA9A6;
+font-weight:600;
+text-decoration:none;
+}
+
+/* MOBILE */
+
+@media(max-width:850px){
+.container{
+flex-direction:column;
+}
+
+.left{
+height:200px;
+}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- LEFT SIDE -->
+
+<div class="left">
+<h2>
+Your safe space for mental wellness...
+Start your healing journey today.
+</h2>
+</div>
+
+<!-- RIGHT SIDE -->
+
+<div class="right">
+
+<h1>Welcome Back</h1>
+<p class="sub">Login to continue your MindCare journey</p>
+
+<form method="POST" action="/login">
+
+<div class="input-group">
+<input type="text" name="username" placeholder="Username" required>
+</div>
+
+<div class="input-group">
+<input type="password" name="password" placeholder="Password" required>
+</div>
+
+<button class="login-btn">Login</button>
+
+</form>
+
+<div class="register">
+Don’t have an account?  
+<a href="/register">Create one</a>
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>

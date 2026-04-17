@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>MindCare Safety Tips</title>
+
+<style>
+
+/* ===== Animated Background ===== */
+body{
+    margin:0;
+    font-family:Poppins, sans-serif;
+    color:white;
+
+    background: linear-gradient(-45deg,
+        #0d1b2a,#1b263b,#2563eb,#3b82f6);
+    background-size:400% 400%;
+    animation:bgMove 18s ease infinite;
+}
+
+@keyframes bgMove{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+
+/* ===== Container Animation ===== */
+.container{
+    width:85%;
+    margin:auto;
+    padding:30px 0;
+    text-align:center;
+    animation:fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(20px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+
+/* ===== Grid ===== */
+.tips-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:22px;
+    margin-top:25px;
+}
+
+
+/* ===== Anchor Styling ===== */
+.tips-grid a{
+    text-decoration:none;
+    color:white;
+}
+
+
+/* ===== Cards ===== */
+.tip-card{
+    background:#1b263bcc;
+    padding:25px;
+    border-radius:18px;
+    backdrop-filter:blur(10px);
+    box-shadow:0 10px 25px rgba(0,0,0,0.4);
+    transition:0.3s;
+    cursor:pointer;
+    position:relative;
+    overflow:hidden;
+    color:white;
+    font-weight:500;
+    text-shadow:0 0 6px rgba(255,255,255,0.25);
+}
+
+/* Hover animation */
+.tip-card:hover{
+    transform:translateY(-8px) scale(1.02);
+    box-shadow:0 15px 35px rgba(0,0,0,0.6);
+}
+
+/* Ripple hover effect */
+.tip-card::after{
+    content:"";
+    position:absolute;
+    width:300%;
+    height:300%;
+    top:100%;
+    left:-100%;
+    background:rgba(255,255,255,0.05);
+    transition:0.6s;
+}
+
+.tip-card:hover::after{
+    top:-100%;
+}
+
+
+/* Tips content cards */
+.tip-card p{
+    margin-top:10px;
+    color:#e2e8f0;
+    font-size:15px;
+}
+
+
+/* Back Button */
+.back{
+    display:inline-block;
+    margin-top:30px;
+    padding:12px 20px;
+    background:#3b82f6;
+    border-radius:10px;
+    text-decoration:none;
+    color:white;
+    transition:0.2s;
+}
+
+.back:hover{
+    filter:brightness(0.9);
+    transform:scale(1.05);
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+{% if topic %}
+
+<!-- Tips Content Page -->
+<h2>{{topic.capitalize()}} Wellness Tips</h2>
+
+<div class="tips-grid">
+{% for tip in tips %}
+<div class="tip-card">
+🌿 {{tip}}
+</div>
+{% endfor %}
+</div>
+
+<a href="/thoughts" class="back">⬅ Back to Safety Tips</a>
+
+{% else %}
+
+<!-- Categories Page -->
+<h2>Mental Wellness Safety Tips</h2>
+
+<div class="tips-grid">
+
+<a href="/tips/stress"><div class="tip-card">🌿 Stress Coping</div></a>
+<a href="/tips/panic"><div class="tip-card">💙 Panic Attack Help</div></a>
+<a href="/tips/selfcare"><div class="tip-card">✨ Self Care</div></a>
+<a href="/tips/detox"><div class="tip-card">📵 Digital Detox</div></a>
+<a href="/tips/sleep"><div class="tip-card">🌙 Sleep Hygiene</div></a>
+
+</div>
+
+<a href="/dashboard" class="back">Back to Dashboard</a>
+
+{% endif %}
+
+</div>
+
+</body>
+</html>

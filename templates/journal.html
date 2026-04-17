@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>MindCare Journal</title>
+
+<style>
+
+/* BACKGROUND */
+
+body{
+margin:0;
+font-family:'Segoe UI',sans-serif;
+height:100vh;
+background:linear-gradient(120deg,#2563eb,#38bdf8,#60a5fa);
+background-size:400% 400%;
+animation:bgMove 12s infinite alternate;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+@keyframes bgMove{
+0%{background-position:left}
+100%{background-position:right}
+}
+
+/* CONTAINER */
+
+.container{
+display:flex;
+width:90%;
+max-width:1200px;
+height:650px;
+background:white;
+border-radius:30px;
+overflow:hidden;
+box-shadow:0 30px 60px rgba(0,0,0,0.2);
+}
+
+/* LEFT SIDE */
+
+.left{
+width:45%;
+background:linear-gradient(140deg,#1e3a8a,#2563eb);
+color:white;
+padding:60px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+}
+
+.left h1{
+font-size:40px;
+margin-bottom:15px;
+}
+
+.left p{
+opacity:.9;
+line-height:1.7;
+}
+
+/* MOTIVATION CARD */
+
+.quote{
+margin-top:40px;
+background:rgba(255,255,255,.15);
+padding:20px;
+border-radius:15px;
+font-style:italic;
+backdrop-filter:blur(10px);
+}
+
+/* RIGHT SIDE */
+
+.right{
+width:55%;
+padding:50px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+}
+
+/* TITLE */
+
+.title{
+font-size:26px;
+margin-bottom:20px;
+color:#1e293b;
+}
+
+/* TEXTAREA */
+
+textarea{
+width:100%;
+height:200px;
+border-radius:15px;
+border:1px solid #e2e8f0;
+padding:15px;
+font-size:15px;
+resize:none;
+outline:none;
+transition:.3s;
+}
+
+textarea:focus{
+border-color:#2563eb;
+box-shadow:0 0 0 3px rgba(37,99,235,.2);
+}
+
+/* COUNTER */
+
+.counter{
+text-align:right;
+font-size:13px;
+color:#64748b;
+margin-top:6px;
+}
+
+/* PROGRESS BAR */
+
+.progress{
+height:6px;
+background:#e2e8f0;
+border-radius:20px;
+margin-top:5px;
+}
+
+.progress-fill{
+height:100%;
+background:#2563eb;
+border-radius:20px;
+width:0%;
+}
+
+/* MOODS */
+
+.moods{
+display:flex;
+gap:10px;
+margin:18px 0;
+}
+
+.mood{
+padding:10px 14px;
+border-radius:20px;
+background:#f1f5ff;
+cursor:pointer;
+transition:.2s;
+font-size:18px;
+}
+
+.mood:hover{
+background:#dbeafe;
+transform:scale(1.1);
+}
+
+/* BUTTON */
+
+button{
+margin-top:15px;
+padding:12px 30px;
+border:none;
+border-radius:30px;
+background:linear-gradient(90deg,#2563eb,#38bdf8);
+color:white;
+font-size:15px;
+cursor:pointer;
+transition:.3s;
+}
+
+button:hover{
+transform:translateY(-2px);
+box-shadow:0 10px 25px rgba(37,99,235,.35);
+}
+
+/* FOOT LINKS */
+
+.links{
+margin-top:25px;
+display:flex;
+justify-content:space-between;
+}
+
+.links a{
+text-decoration:none;
+color:#2563eb;
+font-weight:500;
+}
+
+.links a:hover{
+text-decoration:underline;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- LEFT PANEL -->
+
+<div class="left">
+
+<h1>🧠 MindCare</h1>
+
+<p>
+Journaling helps you process emotions and understand your mental
+patterns. Take a few minutes to reflect on your thoughts today.
+</p>
+
+<div class="quote">
+“Writing is the painting of the voice.” – Voltaire
+</div>
+
+</div>
+
+
+<!-- RIGHT PANEL -->
+
+<div class="right">
+
+<div class="title">Write Today's Journal</div>
+
+<form method="POST" action="/journal">
+
+<textarea
+name="entry"
+id="entry"
+placeholder="How are you feeling today?"
+oninput="updateCounter()"
+required
+></textarea>
+
+<div class="counter" id="counter">0 / 500</div>
+
+<div class="progress">
+<div class="progress-fill" id="progressFill"></div>
+</div>
+
+<div class="moods">
+
+<div class="mood">😊</div>
+<div class="mood">😌</div>
+<div class="mood">😔</div>
+<div class="mood">😣</div>
+<div class="mood">🤩</div>
+
+</div>
+
+<button type="submit">Save Entry</button>
+
+</form>
+
+<div class="links">
+<a href="/journal/view">📖 Past Entries</a>
+<a href="/dashboard">⬅ Dashboard</a>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function updateCounter(){
+
+let text = document.getElementById("entry").value.length
+document.getElementById("counter").innerText = text + " / 500"
+
+let progress = (text / 500) * 100
+document.getElementById("progressFill").style.width = progress + "%"
+
+}
+
+</script>
+
+<!-- SUCCESS POPUP FOR JOURNAL -->
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+
+if (params.get("success") === "1") {
+
+    Swal.fire({
+        icon: "success",
+        title: "Journal saved!",
+        text: "Your entry has been recorded successfully ✨",
+        confirmButtonColor: "#2563eb",
+        showConfirmButton: false,
+        timer: 2000
+    });
+
+}
+
+</script>
+
+</body>
+</html>

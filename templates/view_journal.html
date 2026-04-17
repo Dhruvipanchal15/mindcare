@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>My Journal Entries - MindCare</title>
+
+<style>
+
+body{
+margin:0;
+font-family:'Segoe UI',sans-serif;
+background:#f6f9ff;
+padding:40px;
+}
+
+/* HEADER */
+
+.header{
+background:linear-gradient(90deg,#2563eb,#38bdf8);
+color:white;
+padding:25px;
+border-radius:20px;
+margin-bottom:30px;
+box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
+
+.header h1{
+margin:0;
+}
+
+/* JOURNAL CONTAINER */
+
+.entries{
+max-width:800px;
+margin:auto;
+}
+
+/* ENTRY CARD */
+
+.journal-entry{
+background:white;
+padding:22px;
+margin-bottom:20px;
+border-radius:16px;
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
+transition:.3s;
+}
+
+.journal-entry:hover{
+transform:translateY(-4px);
+box-shadow:0 15px 30px rgba(0,0,0,0.12);
+}
+
+.entry-text{
+font-size:16px;
+line-height:1.6;
+color:#1e293b;
+margin-bottom:10px;
+}
+
+/* DATE */
+
+.entry-date{
+font-size:13px;
+color:#64748b;
+}
+
+/* BUTTONS */
+
+.actions{
+margin-top:30px;
+display:flex;
+gap:15px;
+}
+
+.actions a{
+text-decoration:none;
+padding:10px 20px;
+border-radius:25px;
+font-size:14px;
+}
+
+.write{
+background:linear-gradient(90deg,#2563eb,#38bdf8);
+color:white;
+}
+
+.dashboard{
+border:1px solid #2563eb;
+color:#2563eb;
+}
+
+.actions a:hover{
+opacity:.9;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+<h1>📖 My Journal Entries</h1>
+<p>Reflect on your thoughts and emotions</p>
+</div>
+
+<div class="entries">
+
+{% if entries %}
+
+{% for entry in entries %}
+
+<div class="journal-entry">
+
+<div class="entry-text">
+{{ entry[0] }}
+</div>
+
+<div class="entry-date">
+🕒 {{ entry[1] }}
+</div>
+
+</div>
+
+{% endfor %}
+
+{% else %}
+
+<p>No journal entries yet.</p>
+
+{% endif %}
+
+<div class="actions">
+
+<a href="/journal" class="write">Write New Entry</a>
+
+<a href="/dashboard" class="dashboard">Back to Dashboard</a>
+
+</div>
+
+</div>
+
+</body>
+</html>

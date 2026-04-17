@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Auth</title>
+
+<style>
+body{
+margin:0;
+font-family:'Segoe UI';
+background:linear-gradient(135deg,#2aa7c9,#3a7bd5);
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.card{
+background:#f8fafc;
+width:360px;
+padding:35px;
+border-radius:18px;
+box-shadow:0 15px 35px rgba(0,0,0,0.2);
+text-align:center;
+}
+
+h2{
+margin-bottom:20px;
+}
+
+input{
+width:100%;
+padding:12px;
+margin:10px 0;
+border:none;
+background:#e2e8f0;
+border-radius:10px;
+}
+
+button{
+width:100%;
+padding:12px;
+margin-top:10px;
+background:#3b82f6;
+color:white;
+border:none;
+border-radius:10px;
+cursor:pointer;
+}
+
+.link{
+margin-top:15px;
+font-size:14px;
+}
+
+.link span{
+color:#2563eb;
+cursor:pointer;
+font-weight:600;
+}
+
+.hidden{
+display:none;
+}
+
+.msg{
+margin-top:10px;
+font-size:13px;
+}
+
+.success{ color:green; }
+.error{ color:red; }
+
+.back-btn{
+display:block;
+margin-top:12px;
+text-align:center;
+color:#2563eb;
+text-decoration:none;
+font-size:14px;
+}
+
+.back-btn:hover{
+text-decoration:underline;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<!-- LOGIN -->
+<div id="loginBox">
+<h2>Admin Login</h2>
+
+<form method="POST" action="/admin_login">
+<input type="text" name="username" placeholder="Username" required>
+<input type="password" name="password" placeholder="Password" required>
+<button type="submit">Sign In</button>
+</form>
+
+<div class="link">
+Don’t have an account? <span onclick="showRegister()">Register</span>
+</div>
+</div>
+<a href="/" class="back">← Back to Home</a>
+
+<!-- REGISTER -->
+<div id="registerBox" class="hidden">
+<h2>Admin Register</h2>
+
+<form method="POST" action="/admin_register">
+<input type="text" name="username" placeholder="Create username" required>
+<input type="password" name="password" placeholder="Create password" required>
+<button type="submit">Create Account</button>
+</form>
+
+<div class="link">
+Already have an account? <span onclick="showLogin()">Login</span>
+</div>
+</div>
+
+{% if error %}
+<div class="msg error">{{ error }}</div>
+{% endif %}
+
+{% if success %}
+<div class="msg success">{{ success }}</div>
+{% endif %}
+
+</div>
+
+<script>
+function showRegister(){
+    document.getElementById("loginBox").classList.add("hidden");
+    document.getElementById("registerBox").classList.remove("hidden");
+}
+
+function showLogin(){
+    document.getElementById("registerBox").classList.add("hidden");
+    document.getElementById("loginBox").classList.remove("hidden");
+}
+</script>
+
+</body>
+</html>

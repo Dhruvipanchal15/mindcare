@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Weekly Insights | MindCare</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+body{
+margin:0;
+font-family:Poppins,sans-serif;
+background:linear-gradient(135deg,#eef2ff,#ffffff);
+}
+
+/* HEADER */
+
+.header{
+padding:40px;
+background:linear-gradient(90deg,#2563eb,#7c3aed);
+color:white;
+border-bottom-left-radius:35px;
+border-bottom-right-radius:35px;
+box-shadow:0 10px 30px rgba(0,0,0,0.15);
+}
+
+.header h1{
+margin:0;
+font-size:32px;
+}
+
+.header p{
+opacity:.9;
+}
+
+/* CONTAINER */
+
+.container{
+width:92%;
+margin:auto;
+margin-top:30px;
+}
+
+/* GRID */
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:25px;
+}
+
+/* CARD */
+
+.card{
+background:rgba(255,255,255,0.8);
+backdrop-filter:blur(10px);
+padding:25px;
+border-radius:22px;
+box-shadow:0 8px 25px rgba(0,0,0,0.07);
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-4px);
+box-shadow:0 12px 30px rgba(0,0,0,0.1);
+}
+
+/* HIGHLIGHT CARD */
+
+.highlight{
+background:linear-gradient(135deg,#2563eb,#7c3aed);
+color:white;
+}
+
+/* VALUE */
+
+.value{
+font-size:34px;
+font-weight:700;
+margin-top:10px;
+}
+
+/* WELLNESS RING */
+
+.ring{
+width:150px;
+height:150px;
+border-radius:50%;
+background:conic-gradient(
+#22c55e {{ wellness_score }}%,
+#e5e7eb {{ wellness_score }}%
+);
+display:flex;
+align-items:center;
+justify-content:center;
+margin:auto;
+}
+
+.ring span{
+background:white;
+width:110px;
+height:110px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:22px;
+font-weight:700;
+color:#22c55e;
+}
+
+/* CHART AREA */
+
+.chart-box{
+margin-top:20px;
+}
+
+/* BACK BUTTON */
+
+.back{
+margin-top:35px;
+display:inline-block;
+padding:14px 26px;
+background:linear-gradient(90deg,#2563eb,#7c3aed);
+color:white;
+border-radius:14px;
+text-decoration:none;
+font-weight:500;
+transition:.3s;
+}
+
+.back:hover{
+transform:scale(1.05);
+}
+
+/* MOOD LABEL */
+
+.label{
+font-size:14px;
+opacity:.7;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+<h1>Weekly Wellness Insights</h1>
+<p>Your emotional patterns for the last 7 days</p>
+</div>
+
+<div class="container">
+
+<div class="grid">
+
+<!-- WELLNESS SCORE -->
+
+<div class="card highlight">
+<h3>Wellness Score</h3>
+
+<div class="ring">
+<span>{{ wellness_score }}%</span>
+</div>
+
+</div>
+
+<!-- AVG MOOD -->
+
+<div class="card">
+<div class="label">Average Mood</div>
+<div class="value">{{ avg_mood }}</div>
+</div>
+
+<!-- BEST DAY -->
+
+<div class="card">
+<div class="label">Best Day</div>
+<div class="value">{{ best_day }}</div>
+</div>
+
+<!-- WORST DAY -->
+
+<div class="card">
+<div class="label">Toughest Day</div>
+<div class="value">{{ worst_day }}</div>
+</div>
+
+<!-- JOURNAL COUNT -->
+
+<div class="card">
+<div class="label">Journal Entries</div>
+<div class="value">{{ total_entries }}</div>
+</div>
+
+<!-- EMOTION BALANCE -->
+
+<div class="card">
+<h3>Emotion Balance</h3>
+
+<div class="chart-box">
+<canvas id="emotionChart"></canvas>
+</div>
+
+</div>
+
+<!-- MOOD TREND -->
+
+<div class="card">
+<h3>Mood Trend</h3>
+
+<div class="chart-box">
+<canvas id="moodChart"></canvas>
+</div>
+
+</div>
+
+</div>
+
+<center>
+
+<a href="/dashboard" class="back">
+⬅ Back to Dashboard
+</a>
+
+</center>
+
+</div>
+
+<script>
+
+/* POSITIVE VS STRESS */
+
+new Chart(document.getElementById("emotionChart"),{
+
+type:'doughnut',
+
+data:{
+labels:["Positive","Stress"],
+
+datasets:[{
+data:[{{ pos_count }},{{ neg_count }}],
+
+backgroundColor:[
+"#22c55e",
+"#ef4444"
+]
+
+}]
+},
+
+options:{
+plugins:{
+legend:{position:'bottom'}
+}
+}
+
+});
+
+
+/* WEEKLY MOOD TREND */
+
+new Chart(document.getElementById("moodChart"),{
+
+type:'line',
+
+data:{
+
+labels:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
+
+datasets:[{
+
+label:"Mood Level",
+
+data:[3,4,5,2,4,3,4],
+
+borderColor:"#2563eb",
+
+backgroundColor:"rgba(37,99,235,0.2)",
+
+fill:true,
+
+tension:0.4
+
+}]
+
+},
+
+options:{
+plugins:{
+legend:{display:false}
+},
+scales:{
+y:{
+min:1,
+max:5
+}
+}
+}
+
+});
+
+</script>
+
+</body>
+</html>

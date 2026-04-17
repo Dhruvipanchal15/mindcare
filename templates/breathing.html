@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>MindCare Breathing</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Segoe UI;
+background:linear-gradient(135deg,#dbeafe,#e0f2fe,#eef2ff);
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+overflow:hidden;
+}
+
+/* BACKGROUND GLOW */
+
+body::before{
+content:"";
+position:absolute;
+width:450px;
+height:450px;
+background:radial-gradient(circle,#93c5fd,#dbeafe);
+top:-150px;
+left:-120px;
+z-index:-1;
+}
+
+body::after{
+content:"";
+position:absolute;
+width:450px;
+height:450px;
+background:radial-gradient(circle,#60a5fa,#e0f2fe);
+bottom:-150px;
+right:-120px;
+z-index:-1;
+}
+
+/* APP CARD */
+
+.app{
+width:400px;
+background:white;
+border-radius:25px;
+padding:25px;
+box-shadow:0 25px 50px rgba(0,0,0,.12);
+}
+
+/* HEADER */
+
+.header{
+font-size:22px;
+font-weight:600;
+margin-bottom:20px;
+color:#1e293b;
+}
+
+/* ACTIVITY CARD */
+
+.activity-card{
+background:#f8fafc;
+padding:18px;
+border-radius:16px;
+margin-bottom:15px;
+}
+
+.activity-top{
+display:flex;
+align-items:center;
+margin-bottom:10px;
+}
+
+.icon{
+width:60px;
+height:60px;
+border-radius:15px;
+display:flex;
+align-items:center;
+justify-content:center;
+margin-right:15px;
+font-size:20px;
+}
+
+/* COLORS */
+
+.balance{background:#c7d2fe;}
+.focus{background:#e5e7eb;}
+.energize{background:#fde68a;}
+
+/* TEXT */
+
+.title{
+font-size:17px;
+font-weight:600;
+}
+
+.time{
+font-size:13px;
+color:#6b7280;
+}
+
+/* STEPS */
+
+.steps{
+font-size:13px;
+color:#6b7280;
+margin-bottom:10px;
+}
+
+/* TIMER BUTTONS */
+
+.timer-select{
+display:flex;
+gap:8px;
+}
+
+.timer-select button{
+background:#3b82f6;
+color:white;
+border:none;
+padding:7px 12px;
+border-radius:8px;
+cursor:pointer;
+font-size:12px;
+}
+
+.timer-select button:hover{
+background:#2563eb;
+}
+
+/* BREATH SCREEN */
+
+.breath{
+display:none;
+text-align:center;
+}
+
+.circle{
+width:160px;
+height:160px;
+border-radius:50%;
+background:#3b82f6;
+margin:30px auto;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:18px;
+color:white;
+transition:all 3s ease;
+box-shadow:0 0 40px rgba(59,130,246,0.5);
+}
+
+.expand{
+transform:scale(1.6);
+}
+
+.timer{
+font-size:18px;
+color:#374151;
+margin-top:10px;
+}
+
+.back{
+margin-top:20px;
+cursor:pointer;
+color:#3b82f6;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- ACTIVITY LIST -->
+
+<div id="list">
+
+<div class="header">Breathing Activities</div>
+
+<!-- BALANCE -->
+
+<div class="activity-card">
+
+<div class="activity-top">
+<div class="icon balance">⬜</div>
+
+<div>
+<div class="title">Balance</div>
+<div class="time">Box breathing</div>
+</div>
+</div>
+
+<div class="steps">
+Inhale 4s • Hold 4s • Exhale 4s • Hold 4s
+</div>
+
+<div class="timer-select">
+<button onclick="startActivity('Balance',60,'box')">1 min</button>
+<button onclick="startActivity('Balance',180,'box')">3 min</button>
+<button onclick="startActivity('Balance',300,'box')">5 min</button>
+</div>
+
+</div>
+
+
+<!-- FOCUS -->
+
+<div class="activity-card">
+
+<div class="activity-top">
+<div class="icon focus">▣</div>
+
+<div>
+<div class="title">Focus</div>
+<div class="time">4-7-8 breathing</div>
+</div>
+</div>
+
+<div class="steps">
+Inhale 4s • Hold 7s • Exhale 8s
+</div>
+
+<div class="timer-select">
+<button onclick="startActivity('Focus',60,'478')">1 min</button>
+<button onclick="startActivity('Focus',180,'478')">3 min</button>
+<button onclick="startActivity('Focus',300,'478')">5 min</button>
+</div>
+
+</div>
+
+
+<!-- ENERGIZE -->
+
+<div class="activity-card">
+
+<div class="activity-top">
+<div class="icon energize">✺</div>
+
+<div>
+<div class="title">Energize</div>
+<div class="time">Quick breathing</div>
+</div>
+</div>
+
+<div class="steps">
+Inhale • Exhale quickly
+</div>
+
+<div class="timer-select">
+<button onclick="startActivity('Energize',60,'fast')">1 min</button>
+<button onclick="startActivity('Energize',180,'fast')">3 min</button>
+<button onclick="startActivity('Energize',300,'fast')">5 min</button>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- BREATHING SCREEN -->
+
+<div id="breath" class="breath">
+
+<h2 id="activityName"></h2>
+
+<div id="circle" class="circle">Ready</div>
+
+<div id="timer" class="timer"></div>
+
+<div class="back" onclick="goBack()">⬅ Back</div>
+
+</div>
+
+</div>
+
+<script>
+
+let circle=document.getElementById("circle")
+let timerDisplay=document.getElementById("timer")
+
+let breathingInterval
+let sessionInterval
+
+function startActivity(name,time,type){
+
+document.getElementById("list").style.display="none"
+document.getElementById("breath").style.display="block"
+
+document.getElementById("activityName").innerText=name
+
+startSession(time)
+startBreathing(type)
+
+}
+
+function goBack(){
+location.reload()
+}
+
+/* SESSION TIMER */
+
+function startSession(time){
+
+let remaining=time
+
+sessionInterval=setInterval(()=>{
+
+remaining--
+
+let m=Math.floor(remaining/60)
+let s=remaining%60
+
+timerDisplay.innerText="Time Left: "+m+":"+(s<10?"0":"")+s
+
+if(remaining<=0){
+
+clearInterval(sessionInterval)
+clearInterval(breathingInterval)
+
+circle.innerText="Session Complete 🌿"
+
+}
+
+},1000)
+
+}
+
+/* BREATHING PATTERNS */
+
+function startBreathing(type){
+
+let step=0
+
+breathingInterval=setInterval(()=>{
+
+if(type==="box"){
+
+if(step===0){circle.classList.add("expand");circle.innerText="Inhale"}
+if(step===1){circle.innerText="Hold"}
+if(step===2){circle.classList.remove("expand");circle.innerText="Exhale"}
+if(step===3){circle.innerText="Hold"}
+
+step=(step+1)%4
+
+}
+
+if(type==="478"){
+
+if(step===0){circle.classList.add("expand");circle.innerText="Inhale (4)"}
+if(step===1){circle.innerText="Hold (7)"}
+if(step===2){circle.classList.remove("expand");circle.innerText="Exhale (8)"}
+
+step=(step+1)%3
+
+}
+
+if(type==="fast"){
+
+if(step===0){circle.classList.add("expand");circle.innerText="Inhale"}
+if(step===1){circle.classList.remove("expand");circle.innerText="Exhale"}
+
+step=(step+1)%2
+
+}
+
+},3000)
+
+}
+
+</script>
+
+</body>
+</html>

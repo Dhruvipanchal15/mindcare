@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>MindCare AI Chat</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+margin:0;
+font-family:'Segoe UI',sans-serif;
+background:#f6fbfb;
+display:flex;
+flex-direction:column;
+height:100vh;
+}
+
+/* HEADER */
+
+.header{
+background:linear-gradient(90deg,#243B8F,#1DA9A6);
+color:white;
+padding:18px 25px;
+font-size:20px;
+font-weight:600;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.header a{
+color:white;
+text-decoration:none;
+font-size:14px;
+}
+
+.ai-text ul{
+padding-left:20px;
+margin-top:8px;
+}
+
+.ai-text li{
+margin:6px 0;
+color:#333;
+font-size:15px;
+}
+
+.ai-text li::marker{
+color:#1DA9A6;
+font-size:18px;
+}
+
+/* CHAT AREA */
+
+.chat-box{
+flex:1;
+overflow-y:auto;
+padding:25px;
+}
+
+/* MESSAGE BUBBLES */
+
+.message{
+max-width:70%;
+padding:14px 18px;
+margin:12px 0;
+border-radius:18px;
+line-height:1.5;
+font-size:15px;
+}
+
+.user{
+background:#1DA9A6;
+color:white;
+margin-left:auto;
+border-bottom-right-radius:4px;
+}
+
+.ai{
+background:white;
+border:1px solid #e5e7eb;
+color:#333;
+border-bottom-left-radius:4px;
+}
+
+/* SUGGESTED QUESTIONS */
+
+.suggestions{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+padding:10px 25px;
+}
+
+.suggestions button{
+border:none;
+padding:10px 16px;
+border-radius:20px;
+background:#e6fffb;
+color:#1DA9A6;
+cursor:pointer;
+font-size:13px;
+}
+
+.suggestions button:hover{
+background:#ccfbf1;
+}
+
+/* INPUT BAR */
+
+.input-area{
+background:white;
+padding:15px 20px;
+border-top:1px solid #eee;
+display:flex;
+gap:10px;
+}
+
+.input-area input{
+flex:1;
+padding:14px;
+border-radius:25px;
+border:1px solid #ddd;
+outline:none;
+}
+
+.input-area button{
+background:linear-gradient(90deg,#243B8F,#1DA9A6);
+color:white;
+border:none;
+padding:12px 22px;
+border-radius:25px;
+cursor:pointer;
+font-weight:600;
+}
+
+.input-area button:hover{
+opacity:.9;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+💙 MindCare AI Support
+<a href="/dashboard">Dashboard</a>
+</div>
+
+<!-- CHAT AREA -->
+<div class="chat-box">
+
+{% if messages %}
+{% for msg in messages %}
+<div class="message {% if msg.sender=='You' %}user{% else %}ai{% endif %}">
+<div class="ai-text">
+{{ msg.text | safe }}
+</div>
+</div>
+{% endfor %}
+{% else %}
+<div class="message ai">
+Hello 💙 I'm here to support your mental wellness.
+How are you feeling today?
+</div>
+{% endif %}
+
+</div>
+
+<!-- QUICK QUESTIONS -->
+<div class="suggestions">
+<button onclick="fill('I feel stressed today')">Stress help</button>
+<button onclick="fill('How to calm anxiety?')">Anxiety tips</button>
+<button onclick="fill('Motivation please')">Motivation</button>
+<button onclick="fill('Sleep tips?')">Feel better</button>
+</div>
+
+<!-- INPUT -->
+<form method="POST" action="/ai_chat" class="input-area">
+<input id="msg" name="message" placeholder="Talk to MindCare AI..." required>
+<button>Send</button>
+</form>
+
+<script>
+function fill(text){
+document.getElementById("msg").value=text;
+}
+
+document.querySelectorAll(".ai-text").forEach(el=>{
+let text = el.innerHTML;
+
+text = text
+.replace(/\*\*(.*?)\*\*/g,"<b>$1</b>") // bold
+.replace(/\* (.*?)(<br>|$)/g,"<li>$1</li>");
+
+if(text.includes("<li>")){
+text = "<ul>"+text+"</ul>";
+}
+
+el.innerHTML = text;
+});
+
+</script>
+
+</body>
+</html>

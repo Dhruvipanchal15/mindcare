@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Mood Tracker - MindCare</title>
+
+<style>
+
+/* BACKGROUND */
+
+body{
+margin:0;
+font-family:'Segoe UI',sans-serif;
+height:100vh;
+background:linear-gradient(120deg,#2563eb,#38bdf8,#60a5fa);
+background-size:400% 400%;
+animation:bgMove 12s infinite alternate;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+@keyframes bgMove{
+0%{background-position:left}
+100%{background-position:right}
+}
+
+/* MAIN CONTAINER */
+
+.container{
+display:flex;
+width:90%;
+max-width:1200px;
+height:650px;
+background:white;
+border-radius:30px;
+overflow:hidden;
+box-shadow:0 30px 60px rgba(0,0,0,.2);
+}
+
+/* LEFT PANEL */
+
+.left{
+width:45%;
+background:linear-gradient(140deg,#1e3a8a,#2563eb);
+color:white;
+padding:60px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+}
+
+.left h1{
+font-size:38px;
+margin-bottom:10px;
+}
+
+.left p{
+opacity:.9;
+line-height:1.7;
+}
+
+.quote{
+margin-top:40px;
+background:rgba(255,255,255,.15);
+padding:20px;
+border-radius:15px;
+font-style:italic;
+backdrop-filter:blur(10px);
+}
+
+/* RIGHT PANEL */
+
+.right{
+width:55%;
+padding:45px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+}
+
+/* TITLE */
+
+.title{
+font-size:26px;
+margin-bottom:15px;
+color:#1e293b;
+}
+
+.subtitle{
+color:#64748b;
+margin-bottom:20px;
+}
+
+/* MOOD GRID */
+
+.mood-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
+margin-bottom:20px;
+}
+
+.mood-option{
+padding:14px;
+border-radius:14px;
+background:#f1f5ff;
+cursor:pointer;
+text-align:center;
+transition:.25s;
+}
+
+.mood-option span{
+display:block;
+font-size:22px;
+margin-bottom:5px;
+}
+
+.mood-option input{
+display:none;
+}
+
+.mood-option:hover{
+transform:scale(1.05);
+background:#e0edff;
+}
+
+.mood-option input:checked + div{
+background:linear-gradient(120deg,#2563eb,#38bdf8);
+color:white;
+padding:14px;
+border-radius:14px;
+}
+
+/* TAGS */
+
+.tags{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+margin-bottom:20px;
+}
+
+.tag{
+cursor:pointer;
+}
+
+.tag input{
+display:none;
+}
+
+.tag span{
+padding:8px 16px;
+border-radius:20px;
+background:#f1f5ff;
+font-size:13px;
+transition:.2s;
+}
+
+.tag span:hover{
+background:#e0edff;
+}
+
+.tag input:checked + span{
+background:#2563eb;
+color:white;
+}
+
+/* TEXTAREA */
+
+textarea{
+width:100%;
+border-radius:14px;
+border:1px solid #e2e8f0;
+padding:12px;
+resize:none;
+height:70px;
+font-size:14px;
+margin-bottom:15px;
+}
+
+textarea:focus{
+outline:none;
+border-color:#2563eb;
+box-shadow:0 0 0 3px rgba(37,99,235,.2);
+}
+
+/* BUTTON */
+
+button{
+width:100%;
+padding:14px;
+border:none;
+border-radius:25px;
+background:linear-gradient(90deg,#2563eb,#38bdf8);
+color:white;
+font-size:15px;
+font-weight:600;
+cursor:pointer;
+transition:.3s;
+}
+
+button:hover{
+transform:translateY(-2px);
+box-shadow:0 12px 25px rgba(37,99,235,.35);
+}
+
+/* BACK LINK */
+
+.back{
+display:block;
+margin-top:15px;
+text-align:center;
+color:#2563eb;
+text-decoration:none;
+font-size:14px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- LEFT PANEL -->
+
+<div class="left">
+
+<h1>💙 Mood Tracker</h1>
+
+<p>
+Tracking your mood daily helps you understand emotional patterns
+and improve mental well-being.
+</p>
+
+<div class="quote">
+“Your emotions are valid. Understanding them is the first step to healing.”
+</div>
+
+</div>
+
+<!-- RIGHT PANEL -->
+
+<div class="right">
+
+<div class="title">How was your day?</div>
+<div class="subtitle">Select the mood that best describes today</div>
+
+<form method="POST" action="/mood">
+
+<div class="mood-grid">
+
+<label class="mood-option">
+<input type="radio" name="mood" value="Ecstatic" required>
+<div><span>🤩</span>Ecstatic</div>
+</label>
+
+<label class="mood-option">
+<input type="radio" name="mood" value="Happy">
+<div><span>😍</span>Happy</div>
+</label>
+
+<label class="mood-option">
+<input type="radio" name="mood" value="Content">
+<div><span>😊</span>Content</div>
+</label>
+
+<label class="mood-option">
+<input type="radio" name="mood" value="Neutral">
+<div><span>😐</span>Neutral</div>
+</label>
+
+<label class="mood-option">
+<input type="radio" name="mood" value="Annoyed">
+<div><span>😒</span>Annoyed</div>
+</label>
+
+<label class="mood-option">
+<input type="radio" name="mood" value="Angry">
+<div><span>😡</span>Angry</div>
+</label>
+
+</div>
+
+<p style="font-size:14px;color:#555;">What influenced this mood?</p>
+
+<div class="tags">
+
+<label class="tag">
+<input type="checkbox" name="topic" value="work">
+<span>Work</span>
+</label>
+
+<label class="tag">
+<input type="checkbox" name="topic" value="family">
+<span>Family</span>
+</label>
+
+<label class="tag">
+<input type="checkbox" name="topic" value="relationship">
+<span>Relationship</span>
+</label>
+
+<label class="tag">
+<input type="checkbox" name="topic" value="self">
+<span>Myself</span>
+</label>
+
+<label class="tag">
+<input type="checkbox" name="topic" value="school">
+<span>School</span>
+</label>
+
+</div>
+
+<textarea name="note" placeholder="Write a short note (optional)"></textarea>
+
+<button type="submit">Save Mood</button>
+
+</form>
+
+<a href="/dashboard" class="back">⬅ Back to Dashboard</a>
+
+</div>
+
+</div>
+
+<!-- SUCCESS POPUP (ADDED CODE ONLY) -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+
+if (params.get("success") === "1") {
+
+    Swal.fire({
+        icon: "success",
+        title: "Your mood saved!",
+        text: "Thank you 💙",
+        showConfirmButton: false,
+        timer: 2000
+    });
+
+}
+
+</script>
+
+</body>
+</html>

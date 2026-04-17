@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Appointment Confirmed | MindCare</title>
+
+<style>
+body{
+margin:0;
+font-family:'Segoe UI',sans-serif;
+background:linear-gradient(-45deg,#243B8F,#1DA9A6,#243B8F,#1DA9A6);
+background-size:400% 400%;
+animation:gradientMove 12s ease infinite;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+}
+
+/* Background Animation */
+@keyframes gradientMove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+/* CARD */
+.card{
+width:450px;
+background:white;
+padding:45px;
+border-radius:30px;
+text-align:center;
+box-shadow:0 35px 80px rgba(0,0,0,.3);
+animation:fadeIn .8s ease;
+}
+
+@keyframes fadeIn{
+from{opacity:0; transform:translateY(20px);}
+to{opacity:1; transform:translateY(0);}
+}
+
+/* TICK */
+.checkmark{
+width:90px;
+height:90px;
+border-radius:50%;
+border:5px solid #1DA9A6;
+margin:0 auto 20px auto;
+position:relative;
+animation:pop .6s ease;
+}
+
+@keyframes pop{
+0%{transform:scale(0);}
+100%{transform:scale(1);}
+}
+
+.checkmark::after{
+content:"";
+position:absolute;
+left:22px;
+top:38px;
+width:25px;
+height:12px;
+border-left:5px solid #1DA9A6;
+border-bottom:5px solid #1DA9A6;
+transform:rotate(-45deg);
+}
+
+/* TEXT */
+h2{
+color:#243B8F;
+margin-bottom:10px;
+}
+
+.details{
+color:#555;
+line-height:1.7;
+margin:20px 0;
+font-size:15px;
+}
+
+/* BUTTONS */
+.btn{
+display:block;
+width:100%;
+padding:14px;
+border:none;
+border-radius:30px;
+font-size:15px;
+font-weight:600;
+cursor:pointer;
+margin-top:15px;
+transition:.3s;
+text-decoration:none;
+}
+
+.calendar{
+background:linear-gradient(90deg,#243B8F,#1DA9A6);
+color:white;
+}
+
+.dashboard{
+background:#f1f5f9;
+color:#243B8F;
+}
+
+.btn:hover{
+transform:translateY(-3px);
+box-shadow:0 15px 30px rgba(0,0,0,.25);
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<div class="checkmark"></div>
+
+<h2>Appointment Confirmed</h2>
+
+<div class="details">
+Your session with<br>
+<strong>Dr. {{ doctor }}</strong><br><br>
+
+📅 <strong>{{ date }}</strong><br>
+⏰ <strong>{{ time }}</strong>
+</div>
+
+<a href="{{calendar_link}}" target="_blank" class="btn calendar">
+📅 Add to Google Calendar
+</a>
+
+<a href="/dashboard" class="btn dashboard">
+Go to Dashboard
+</a>
+
+</div>
+
+</body>
+</html>

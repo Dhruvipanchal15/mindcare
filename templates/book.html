@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Book Appointment | MindCare</title>
+
+<style>
+body{
+margin:0;
+font-family:'Segoe UI',sans-serif;
+background:linear-gradient(160deg,#243B8F,#1DA9A6);
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+}
+
+/* MAIN CARD */
+.card{
+width:420px;
+background:white;
+padding:30px;
+border-radius:30px;
+box-shadow:0 30px 70px rgba(0,0,0,.3);
+}
+
+/* TITLE */
+h2{
+text-align:center;
+color:#243B8F;
+margin-bottom:25px;
+}
+
+/* INPUT */
+.input-group{
+margin-bottom:20px;
+}
+
+.input-group label{
+display:block;
+margin-bottom:6px;
+font-size:14px;
+color:#243B8F;
+font-weight:600;
+}
+
+.input-group input{
+width:100%;
+padding:14px;
+border-radius:14px;
+border:1px solid #e2e8f0;
+font-size:14px;
+}
+
+.input-group input:focus{
+outline:none;
+border-color:#1DA9A6;
+box-shadow:0 0 0 3px rgba(29,169,166,.15);
+}
+
+/* TIME SLOT GRID */
+.time-slots{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:12px;
+margin-top:10px;
+}
+
+.time-slots input{
+display:none;
+}
+
+.slot{
+padding:12px;
+border-radius:20px;
+border:1px solid #e2e8f0;
+text-align:center;
+cursor:pointer;
+transition:.3s;
+font-size:14px;
+}
+
+.time-slots input:checked + .slot{
+background:linear-gradient(90deg,#243B8F,#1DA9A6);
+color:white;
+border:none;
+}
+
+/* BUTTON */
+button{
+width:100%;
+padding:14px;
+border:none;
+border-radius:30px;
+background:linear-gradient(90deg,#243B8F,#1DA9A6);
+color:white;
+font-size:16px;
+font-weight:600;
+margin-top:25px;
+cursor:pointer;
+transition:.3s;
+}
+
+button:hover{
+transform:translateY(-3px);
+box-shadow:0 15px 30px rgba(0,0,0,.3);
+}
+
+.back{
+display:block;
+text-align:center;
+margin-top:18px;
+color:#1DA9A6;
+text-decoration:none;
+font-weight:500;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<form method="POST" action="/book/{{doc_id}}">
+
+<h2>Book an Appointment</h2>
+
+<!-- NAME -->
+<div class="input-group">
+<label>Your Name</label>
+<input name="name" placeholder="Enter full name" required>
+</div>
+
+<!-- DATE -->
+<div class="input-group">
+<label>Select Date</label>
+<input type="date" name="date" required>
+</div>
+
+<div class="input-group">
+<label>Select Time Slot</label>
+
+<div class="time-slots">
+
+<label>
+<input type="radio" name="time" value="12:00" required>
+<div class="slot">12:00 PM</div>
+</label>
+
+<label>
+<input type="radio" name="time" value="15:00">
+<div class="slot">03:00 PM</div>
+</label>
+
+<label>
+<input type="radio" name="time" value="17:00">
+<div class="slot">05:00 PM</div>
+</label>
+
+<label>
+<input type="radio" name="time" value="19:00">
+<div class="slot">07:00 PM</div>
+</label>
+
+</div>
+</div>
+
+<button>Confirm Booking</button>
+
+</form>
+
+<a href="/help" class="back">⬅ Back to Doctors</a>
+
+</div>
+
+</body>
+</html>

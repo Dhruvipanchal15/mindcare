@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>My Appointments | MindCare</title>
+
+<style>
+body{
+    margin:0;
+    font-family:'Segoe UI',sans-serif;
+    background:linear-gradient(160deg,#243B8F,#1DA9A6);
+    color:white;
+}
+
+/* HEADER */
+.header{
+    text-align:center;
+    padding:30px 0;
+    font-size:28px;
+    font-weight:600;
+}
+
+/* SECTION */
+.section{
+    width:85%;
+    margin:30px auto;
+}
+
+.section h2{
+    margin-bottom:20px;
+}
+
+/* CARD */
+.appointment{
+    background:white;
+    color:#243B8F;
+    padding:20px;
+    border-radius:20px;
+    margin-bottom:18px;
+    box-shadow:0 15px 35px rgba(0,0,0,.25);
+    transition:.3s;
+}
+
+.appointment:hover{
+    transform:translateY(-5px);
+}
+
+.appointment h3{
+    margin:0 0 8px 0;
+}
+
+.appointment p{
+    margin:4px 0;
+    color:#555;
+}
+
+/* BUTTONS */
+.btns{
+    text-align:center;
+    margin:40px 0;
+}
+
+.btn{
+    padding:12px 26px;
+    border:none;
+    border-radius:25px;
+    background:white;
+    color:#243B8F;
+    font-weight:600;
+    margin:10px;
+    text-decoration:none;
+    display:inline-block;
+    transition:.3s;
+}
+
+.btn:hover{
+    background:#e0f2fe;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+My Appointments
+</div>
+
+<!-- UPCOMING -->
+<div class="section">
+<h2>Upcoming Appointments</h2>
+
+{% if upcoming %}
+    {% for apt in upcoming %}
+    <div class="appointment">
+        <h3>Dr. {{ apt[1] }}</h3>
+        <p><b>Name:</b> {{ apt[0] }}</p>
+        <p><b>Date:</b> {{ apt[2] }}</p>
+        <p><b>Time:</b> {{ apt[3] }}</p>
+        <p><b>Concern:</b> {{ apt[4] }}</p>
+    </div>
+    {% endfor %}
+{% else %}
+    <p>No upcoming appointments.</p>
+{% endif %}
+</div>
+
+<!-- PAST -->
+<div class="section">
+<h2>Past Appointments</h2>
+
+{% if past %}
+    {% for apt in past %}
+    <div class="appointment">
+        <h3>Dr. {{ apt[1] }}</h3>
+        <p><b>Name:</b> {{ apt[0] }}</p>
+        <p><b>Date:</b> {{ apt[2] }}</p>
+        <p><b>Time:</b> {{ apt[3] }}</p>
+    </div>
+    {% endfor %}
+{% else %}
+    <p>No past appointments.</p>
+{% endif %}
+</div>
+
+<div class="btns">
+<a href="/help" class="btn">Book New Appointment</a>
+<a href="/dashboard" class="btn">Back to Dashboard</a>
+</div>
+
+</body>
+</html>

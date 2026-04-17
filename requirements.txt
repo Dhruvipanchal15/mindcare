@@ -4,3 +4,9 @@ gunicorn
 pymysql
 python-dotenv
 Flask-SQLAlchemy
+Flask-MySQLdb
+mysqlclient
+Werkzeug
+Jinja2
+itsdangerous
+click
